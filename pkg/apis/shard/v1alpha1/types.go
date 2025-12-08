@@ -27,7 +27,7 @@ import (
 // NodeShard is a collection of nodes dedicated to a specific scheduler
 // +kubebuilder:object:root=true
 // +kubebuilder:resource:path=nodeshards,scope=Cluster,shortName=nsh
-// +kubebuilder:printcolumn:name="SCHEDULER",type=string,JSONPath=`.spec.schedulerName`
+// +kubebuilder:subresource:status
 // +kubebuilder:printcolumn:name="AGE",type=date,JSONPath=`.metadata.creationTimestamp`
 type NodeShard struct {
 	metav1.TypeMeta `json:",inline"`
@@ -47,10 +47,6 @@ type NodeShard struct {
 
 // NodeShardSpec represents the template of a NodeShard.
 type NodeShardSpec struct {
-	// SchedulerName indicates which scheduler should handle this NodeShard.
-	// Required.
-	SchedulerName string `json:"schedulerName"`
-
 	// NodesDesired defines the list of nodes desired to be included in this NodeShard.
 	// Required.
 	NodesDesired []string `json:"nodesDesired"`
